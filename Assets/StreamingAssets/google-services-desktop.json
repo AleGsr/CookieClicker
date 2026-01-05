@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "702206405736",
+    "project_id": "protogames-2cfa8",
+    "storage_bucket": "protogames-2cfa8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702206405736:android:cfe46a255d337708d79fdd",
+        "android_client_info": {
+          "package_name": "com.Alejandra.Cookie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwIhiLVxfARbf4kE0NWnVO-H_iQYKQv4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
