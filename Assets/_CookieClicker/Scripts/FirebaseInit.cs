@@ -7,9 +7,9 @@ public class FirebaseInit : MonoBehaviour
 {
     public static bool IsFirebaseReady { get; private set; } = false;
     public static FirebaseApp AppInstance { get; private set; }
-    public static event Action OnFirebaseReady;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
     void Start()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -24,7 +24,7 @@ public class FirebaseInit : MonoBehaviour
                 }
                 IsFirebaseReady = true;
                 Debug.Log("Firebase initialized!");
-                OnFirebaseReady?.Invoke();
+                AppEventsHUB.OnFireBaseInitialized.Invoke();
             }
             else
             {

@@ -22,7 +22,11 @@ public class AuthManager : MonoBehaviour
         }
         else
         {
-            FirebaseInit.OnFirebaseReady += InitializeAppFireBase;
+            //NEW
+            AppEventsHUB.OnFireBaseInitialized.AddListener(InitializeAppFireBase);
+
+            //OLD
+            //FirebaseInit.OnFirebaseReady += InitializeAppFireBase;
         }
     }
 
