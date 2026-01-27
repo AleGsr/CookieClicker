@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b38fd9b054239794888b98cdc9f47b3b
+timeCreated: 1435586478
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Models/Meshes/Materials/gem_tri.mat
+  uploadId: 430253

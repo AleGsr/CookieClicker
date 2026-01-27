@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d457408d3798f4c4fa9393b15a20371c
+timeCreated: 1433703598
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Models/Materials/GemTri/gem_tri_red.mat
+  uploadId: 430253

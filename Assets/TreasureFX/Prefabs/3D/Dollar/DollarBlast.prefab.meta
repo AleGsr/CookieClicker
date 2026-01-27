@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 46394a87d13cb2f478f84164da470282
+timeCreated: 1435587605
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Dollar/DollarBlast.prefab
+  uploadId: 430253

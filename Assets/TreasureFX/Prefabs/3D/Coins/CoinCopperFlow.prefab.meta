@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ec57fee1ab11bd54890b85155b4e8460
+timeCreated: 1435758582
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Coins/CoinCopperFlow.prefab
+  uploadId: 430253

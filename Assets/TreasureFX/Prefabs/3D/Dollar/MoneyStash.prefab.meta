@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 50e777ef58b890e428a76efb19f79280
+timeCreated: 1435759238
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Dollar/MoneyStash.prefab
+  uploadId: 430253

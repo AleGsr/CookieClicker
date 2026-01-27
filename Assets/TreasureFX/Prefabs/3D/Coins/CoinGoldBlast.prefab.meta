@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e0b4dbdf6d8e86248a5d1aa2c4ef9d47
+timeCreated: 1435587600
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Coins/CoinGoldBlast.prefab
+  uploadId: 430253

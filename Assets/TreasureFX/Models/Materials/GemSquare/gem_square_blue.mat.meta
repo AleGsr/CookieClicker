@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 24add7be8bf396641a36296718f3ec66
+timeCreated: 1435762079
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Models/Materials/GemSquare/gem_square_blue.mat
+  uploadId: 430253

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 98be7e4bbdcbdfb4ba405393ae965ad8
+timeCreated: 1435758584
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Coins/CoinGoldFlow.prefab
+  uploadId: 430253

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c29b06e15dd70fb458a62cbb6dc54eb6
+timeCreated: 1435762312
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Gems/Quad/GemQuadGreenFlow.prefab
+  uploadId: 430253

@@ -1,19 +1,30 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
-using Firebase.Extensions;   // for ContinueWithOnMainThread
-using TMPro;
+using Firebase.Extensions;   // ContinueWithOnMainThread
+
+[Serializable]
+public class PurchasedItemEntry
+{
+    public string id;
+    public int count; // cuántas veces se compró (sirve para items repetibles)
+}
 
 [Serializable]
 public class dataToSave
 {
     public string userName;
     public int totalCoins;
-    //public int crrLevel;
-    //public int highScore;
+    public int crrLevel;
+    public int highScore;
+
+    // NUEVO: inventario de compras
+    public PurchasedItemEntry[] purchasedItems;
 }
 
 public class DataSaver : MonoBehaviour
@@ -23,8 +34,6 @@ public class DataSaver : MonoBehaviour
     private DatabaseReference dbRef;
     private FirebaseAuth auth;
     private string userId;
-
-    public TMP_Text userMoney;
 
     // Initialize Firebase, ensure a user exists, then set up DB
     private async void Awake()
@@ -58,8 +67,34 @@ public class DataSaver : MonoBehaviour
 
         Debug.Log("Firebase ready. Current UID = " + userId);
 
-        // Ensure dts exists so Save doesn't serialize null
         if (dts == null) dts = new dataToSave();
+    }
+
+    // ---- NUEVO: registrar compra en el inventario ----
+    public void RegisterPurchase(string itemId, int addCount = 1)
+    {
+        if (string.IsNullOrEmpty(itemId)) return;
+        if (dts == null) dts = new dataToSave();
+
+        var list = (dts.purchasedItems != null)
+            ? dts.purchasedItems.ToList()
+            : new List<PurchasedItemEntry>();
+
+        var entry = list.FirstOrDefault(x => x.id == itemId);
+        if (entry == null)
+        {
+            list.Add(new PurchasedItemEntry
+            {
+                id = itemId,
+                count = Mathf.Max(1, addCount)
+            });
+        }
+        else
+        {
+            entry.count += Mathf.Max(1, addCount);
+        }
+
+        dts.purchasedItems = list.ToArray();
     }
 
     public void SaveDataFn()
@@ -100,7 +135,6 @@ public class DataSaver : MonoBehaviour
         {
             dts = JsonUtility.FromJson<dataToSave>(jsonData);
             Debug.Log("Server data loaded for UID: " + userId);
-            userMoney.text = dts.totalCoins.ToString();
         }
         else
         {
@@ -122,15 +156,8 @@ public class DataSaver : MonoBehaviour
         }
         if (string.IsNullOrEmpty(userId))
         {
-            userId = auth.CurrentUser.UserId; // refresh if needed
+            userId = auth.CurrentUser.UserId;
         }
         return true;
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S)) SaveDataFn();
-    }
-
-
 }

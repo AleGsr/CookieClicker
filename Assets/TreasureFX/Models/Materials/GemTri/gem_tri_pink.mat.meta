@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3a66fa04388a7f54e9c2eec59cabe71f
+timeCreated: 1433704102
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Models/Materials/GemTri/gem_tri_pink.mat
+  uploadId: 430253

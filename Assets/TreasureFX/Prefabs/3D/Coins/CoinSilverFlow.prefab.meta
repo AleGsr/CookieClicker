@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3c5e6745de39e1948a74eaccd19f3304
+timeCreated: 1435758581
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Coins/CoinSilverFlow.prefab
+  uploadId: 430253

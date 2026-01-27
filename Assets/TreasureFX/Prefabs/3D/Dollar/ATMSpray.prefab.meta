@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a66ba8d3d8e551442add887d506bc18f
+timeCreated: 1435758972
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 22626
+  packageName: Treasure FX
+  packageVersion: 1.41
+  assetPath: Assets/TreasureFX/Prefabs/3D/Dollar/ATMSpray.prefab
+  uploadId: 430253
