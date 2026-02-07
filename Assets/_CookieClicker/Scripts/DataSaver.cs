@@ -140,6 +140,12 @@ public class DataSaver : MonoBehaviour
         {
             Debug.Log("No data found for UID: " + userId);
         }
+
+        GameManager gm = FindObjectOfType<GameManager>();
+        gm.ApplySavedPurchases();
+
+
+
     }
 
     private bool IsReady()

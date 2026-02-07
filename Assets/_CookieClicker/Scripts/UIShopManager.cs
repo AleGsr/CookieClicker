@@ -79,6 +79,7 @@ public class UIShopManager : MonoBehaviour
             var effectIcon = LoadLocalSprite(item.effectPath);
 
             storeItem.Bind(item, icon, effectIcon);
+            Debug.Log($"Store item loaded: {item.name} (id={item.id}, price={item.price})");
         }
     }
 
