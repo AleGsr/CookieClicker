@@ -4,6 +4,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject UI_LoadScreen;
     public GameObject UI_AuthScreen;
+    public GameObject UI_Game;
     public GameObject UI_StoreScreen;
 
     public GameObject currentScreen;
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour
         {
             GameState.Loading => UI_LoadScreen,
             GameState.Auth => UI_AuthScreen,
+            GameState.Game => UI_Game,
             GameState.Store => UI_StoreScreen,
             _ => null
         };

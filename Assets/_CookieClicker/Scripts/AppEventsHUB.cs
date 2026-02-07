@@ -5,6 +5,7 @@ public enum GameState
 {
     Loading,
     Auth,
+    Game,
     Store
 }
 
