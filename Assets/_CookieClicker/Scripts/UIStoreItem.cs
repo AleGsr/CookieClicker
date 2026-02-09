@@ -16,6 +16,10 @@ public class UIStoreItem : MonoBehaviour
     private ShopItem boundItem;
     private GameManager gameManager;
 
+    [Header("State")]
+    public GameObject purchasedMark; // check, glow, overlay, etc
+
+
     public void Init(GameManager gm)
     {
         gameManager = gm;
@@ -51,6 +55,30 @@ public class UIStoreItem : MonoBehaviour
             return;
         }
 
-        gameManager.TryBuy(boundItem);
+        //gameManager.TryBuy(boundItem);
+        bool bought = gameManager.TryBuy(boundItem);
+
+        if (bought)
+        {
+            SetPurchasedVisual(true);
+        }
+
+        Debug.Log("OnBuyClicked: intentó comprar " + boundItem.name);
     }
+
+    void SetPurchasedVisual(bool state)
+    {
+        if (purchasedMark != null)
+            purchasedMark.SetActive(state);
+
+        if (buyButton != null)
+            buyButton.interactable = !state;
+    }
+
+
+    public void ForcePurchased()
+    {
+        SetPurchasedVisual(true);
+    }
+
 }

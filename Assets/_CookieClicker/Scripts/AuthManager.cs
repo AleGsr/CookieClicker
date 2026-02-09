@@ -14,6 +14,8 @@ public class AuthManager : MonoBehaviour
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
 
+    public DataSaver dataSaver;
+
     void Start()
     {
         if(FirebaseInit.IsFirebaseReady)
@@ -75,6 +77,16 @@ public class AuthManager : MonoBehaviour
             Debug.LogWarning("Firebase not ready yet. ");
             return;
         }
+        if (auth.CurrentUser != null)
+        {
+            Debug.Log("User already logged in: " + auth.CurrentUser.Email);
+            return;
+        }
+        if (auth.CurrentUser == null)
+        {
+            Debug.LogWarning("No authenticated user. Waiting for login...");
+            return;
+        }
 
         string email = emailInput.text;
         string password = passwordInput.text;
@@ -89,6 +101,8 @@ public class AuthManager : MonoBehaviour
 
             FirebaseUser user = task.Result.User;
             Debug.Log("User logged in: " + user.Email);
+
+            dataSaver.LoadDataFn();
         });
     }
 
@@ -106,6 +120,18 @@ public class AuthManager : MonoBehaviour
             }
         });
     }
+
+    public void Logout()
+    {
+        if (auth != null)
+        {
+            auth.SignOut();
+            dataSaver.SaveDataFn();
+
+            Debug.Log("User signed out.");
+        }
+    }
+
 
     // Update is called once per frame
     void Update()

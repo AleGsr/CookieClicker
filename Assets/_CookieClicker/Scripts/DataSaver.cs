@@ -29,15 +29,25 @@ public class dataToSave
 
 public class DataSaver : MonoBehaviour
 {
+
+
     public dataToSave dts;
 
     private DatabaseReference dbRef;
     private FirebaseAuth auth;
     private string userId;
 
+    private CookieManager cookieManager;
+
+    public bool IsFirebaseReady { get; private set; } = false;
+    public bool HasLoadedData { get; private set; } = false;
+
+
+
     // Initialize Firebase, ensure a user exists, then set up DB
     private async void Awake()
     {
+        IsFirebaseReady = false;
         var deps = await FirebaseApp.CheckAndFixDependenciesAsync();
         if (deps != DependencyStatus.Available)
         {
@@ -48,26 +58,40 @@ public class DataSaver : MonoBehaviour
         auth = FirebaseAuth.DefaultInstance;
 
         // Auto sign in anonymously if no cached user
-        if (auth.CurrentUser == null)
-        {
-            Debug.Log("No user found. Signing in anonymously…");
-            try
-            {
-                await auth.SignInAnonymouslyAsync();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Anonymous sign-in failed: " + e);
-                return;
-            }
-        }
+        //if (auth.CurrentUser == null)
+        //{
+        //    Debug.Log("No user found. Signing in anonymously…");
+        //    try
+        //    {
+        //        await auth.SignInAnonymouslyAsync();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Debug.LogError("Anonymous sign-in failed: " + e);
+        //        return;
+        //    }
+        //}
 
         userId = auth.CurrentUser.UserId;
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
 
-        Debug.Log("Firebase ready. Current UID = " + userId);
 
         if (dts == null) dts = new dataToSave();
+
+        IsFirebaseReady = true;
+        Debug.Log("Firebase initialized correctly");
+
+    }
+
+    public void SetCookieManager(CookieManager cm)
+    {
+        cookieManager = cm;
+
+        if (dts != null)
+        {
+            cookieManager.currentCookies = dts.totalCoins;
+            cookieManager.UpdatingTextCookies();
+        }
     }
 
     // ---- NUEVO: registrar compra en el inventario ----
@@ -88,6 +112,7 @@ public class DataSaver : MonoBehaviour
                 id = itemId,
                 count = Mathf.Max(1, addCount)
             });
+            Debug.Log($"Registered new purchase: {itemId} x{addCount}");
         }
         else
         {
@@ -99,7 +124,17 @@ public class DataSaver : MonoBehaviour
 
     public void SaveDataFn()
     {
+        Debug.Log("SAVE CALLED");
+
+        if (!IsFirebaseReady)
+        {
+            Debug.LogWarning("Save requested but Firebase is not ready yet.");
+            return;
+        }
         if (!IsReady()) return;
+
+        if (cookieManager != null)
+            dts.totalCoins = cookieManager.currentCookies;
 
         string json = JsonUtility.ToJson(dts);
         dbRef.Child("users").Child(userId).SetRawJsonValueAsync(json)
@@ -135,18 +170,36 @@ public class DataSaver : MonoBehaviour
         {
             dts = JsonUtility.FromJson<dataToSave>(jsonData);
             Debug.Log("Server data loaded for UID: " + userId);
+
+            if (cookieManager != null)
+            {
+                cookieManager.currentCookies = dts.totalCoins;
+                cookieManager.UpdatingTextCookies();
+                Debug.Log("Coins synced from Firebase: " + dts.totalCoins);
+            }
+            HasLoadedData = true;
+
         }
         else
         {
+            HasLoadedData = true;
             Debug.Log("No data found for UID: " + userId);
         }
 
         GameManager gm = FindObjectOfType<GameManager>();
         gm.ApplySavedPurchases();
+       
 
 
 
     }
+
+    public void SyncCoins(int value)
+    {
+        if (dts == null) dts = new dataToSave();
+        dts.totalCoins = value;
+    }
+
 
     private bool IsReady()
     {

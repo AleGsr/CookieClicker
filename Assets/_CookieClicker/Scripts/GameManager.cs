@@ -1,5 +1,4 @@
-using UnityEngine;
-using System.Collections;
+using UnityEngine;using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         AppEventsHUB.OnFireBaseInitialized.AddListener(InitApp);
         dataSaver.LoadDataFn();
         StartCoroutine(WaitAndApply());
@@ -32,11 +32,16 @@ public class GameManager : MonoBehaviour
 
     public bool TryBuy(ShopItem item)
     {
-        if (dataSaver == null || dataSaver.dts == null)
-        {
-            Debug.LogError("[GameManager] Falta DataSaver o dts.");
-            return false;
-        }
+        //if (dataSaver == null || !dataSaver.IsFirebaseReady)
+        //{
+        //    Debug.LogWarning("Firebase not ready. Purchase blocked.");
+        //    return false;
+        //}
+        //if (dataSaver == null || dataSaver.dts == null)
+        //{
+        //    Debug.LogError("[GameManager] Falta DataSaver o dts.");
+        //    return false;
+        //}
 
         if (item == null)
         {
@@ -57,10 +62,16 @@ public class GameManager : MonoBehaviour
         }
 
         // 1) Cobrar
-        dataSaver.dts.totalCoins -= price;
+        //dataSaver.dts.totalCoins -= price;
+        if (!cookieManager.TrySpendCookies(price))
+        {
+            Debug.Log("No alcanza monedas.");
+            return false;
+        }
 
         // 2) Registrar compra en inventario
         dataSaver.RegisterPurchase(item.id, 1);
+        cookieManager.UpdatingTextCookies();
 
         ApplyItemEffectById(item.id);
 
@@ -76,31 +87,31 @@ public class GameManager : MonoBehaviour
     {
         switch (id)
         {
-            case "gatitos_panaderos":
-                cookieManager.StartPassiveProduction(1);
+            case "Baker Kittens":
+                cookieManager.BakerKittens(1);
                 break;
 
-            case "hornos_felinos":
-                cookieManager.AddGlobalMultiplier(0.30f);
+            case "Oven Cat":
+                cookieManager.OvenCat(0.30f);
                 break;
 
-            case "gato_repartidor":
-                cookieManager.AddGlobalMultiplier(0.10f);
+            case "Delivery Cat":
+                cookieManager.OvenCat(0.10f);
                 break;
 
-            case "dulce_tecnica":
+            case "Sweet Secret Technique":
                 cookieManager.AddClickBonus(5);
                 break;
 
-            case "galletas_crujientes":
+            case "Crispy Cookies":
                 cookieManager.EnableCrunchyCookies();
                 break;
 
-            case "ronroneo_dulce":
+            case "Sweet Purr":
                 cookieManager.EnableComboBoost();
                 break;
 
-            case "galleta_dorada":
+            case "Golden Cookie":
                 cookieManager.EnableGoldenCookie();
                 break;
         }
@@ -117,8 +128,25 @@ public class GameManager : MonoBehaviour
                 ApplyItemEffectById(entry.id);
             }
         }
+
+
+        UIStoreItem[] all = FindObjectsOfType<UIStoreItem>();
+
+        foreach (var ui in all)
+        {
+            foreach (var entry in dataSaver.dts.purchasedItems)
+            {
+                if (ui.nameTag.text == entry.id)
+                    ui.ForcePurchased();
+            }
+        }
+
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 
 
 }

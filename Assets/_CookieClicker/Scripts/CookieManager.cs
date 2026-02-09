@@ -5,8 +5,10 @@ using System.Collections;
 public class CookieManager : MonoBehaviour
 {
 
-    public int currentCookies = 0;
+    public int currentCookies;
     public int cookiesPC = 1;
+
+    public DataSaver dataSaver;
 
     float globalMultiplier = 1f;
     int clickBonus = 0;
@@ -17,7 +19,7 @@ public class CookieManager : MonoBehaviour
     public TextMeshProUGUI cashCookies;
 
 
-    int passiveCookiesPerSecond = 0;
+    int bakerCookiesPerSec;
 
     int clickCounter = 0;
 
@@ -25,10 +27,22 @@ public class CookieManager : MonoBehaviour
     bool comboActive = false;
 
 
+    void Awake()
+    {
+        dataSaver.SetCookieManager(this);
+    }
 
 
     void Start()
     {
+        InvokeRepeating(nameof(AutoSave), 10f, 20f);
+
+        void AutoSave()
+        {
+            dataSaver.SaveDataFn();
+        }
+
+        //dataSaver.SetCookieManager(this);
         UpdatingTextCookies();
     }
 
@@ -59,7 +73,8 @@ public class CookieManager : MonoBehaviour
 
         gain = Mathf.RoundToInt(gain * globalMultiplier);
 
-        currentCookies += gain;
+        AddCookies(gain);
+
 
         if (crunchyActive && clickCounter % 30 == 0)
             globalMultiplier += 0.05f;
@@ -67,22 +82,31 @@ public class CookieManager : MonoBehaviour
         UpdatingTextCookies();
     }
 
+    public void AddCookies(int amount)
+    {
+        currentCookies += amount;
+        UpdatingTextCookies();
+
+        if (dataSaver != null)
+            dataSaver.SyncCoins(currentCookies);
+    }
+
 
 
     //----------GATITOS PANADEROS----------
-    public void StartPassiveProduction(int amount)
+    public void BakerKittens(int amount)
     {
-        passiveCookiesPerSecond += amount;
+        bakerCookiesPerSec += amount;
 
-        StopCoroutine("PassiveLoop");
-        StartCoroutine("PassiveLoop");
+        StopCoroutine("BakerKittensProduction");
+        StartCoroutine("BakerKittensProduction");
     }
 
-    IEnumerator PassiveLoop()
+    IEnumerator BakerKittensProduction()
     {
         while (true)
         {
-            currentCookies += passiveCookiesPerSecond;
+            AddCookies(bakerCookiesPerSec);
             UpdatingTextCookies();
             yield return new WaitForSeconds(1f);
         }
@@ -91,7 +115,7 @@ public class CookieManager : MonoBehaviour
 
 
     //----------GATITOS HORNOS----------
-    public void AddGlobalMultiplier(float percent)
+    public void OvenCat(float percent)
     {
         globalMultiplier += percent;
     }
@@ -134,6 +158,19 @@ public class CookieManager : MonoBehaviour
     }
 
 
+    public bool TrySpendCookies(int amount)
+    {
+        if (currentCookies < amount)
+            return false;
+
+        currentCookies -= amount;
+        UpdatingTextCookies();
+
+        if (dataSaver != null)
+            dataSaver.SyncCoins(currentCookies);
+
+        return true;
+    }
 
 
 
