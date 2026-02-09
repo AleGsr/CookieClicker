@@ -89,30 +89,37 @@ public class GameManager : MonoBehaviour
         {
             case "Baker Kittens":
                 cookieManager.BakerKittens(1);
+                cookieManager.TurnOnPowerUp(0);
                 break;
 
             case "Oven Cat":
                 cookieManager.OvenCat(0.30f);
+                cookieManager.TurnOnPowerUp(1);
                 break;
 
             case "Delivery Cat":
                 cookieManager.OvenCat(0.10f);
+                cookieManager.TurnOnPowerUp(2);
                 break;
 
             case "Sweet Secret Technique":
                 cookieManager.AddClickBonus(5);
+                cookieManager.TurnOnPowerUp(3);
                 break;
 
             case "Crispy Cookies":
                 cookieManager.EnableCrunchyCookies();
+                cookieManager.TurnOnPowerUp(4);
                 break;
 
             case "Sweet Purr":
                 cookieManager.EnableComboBoost();
+                cookieManager.TurnOnPowerUp(5);
                 break;
 
             case "Golden Cookie":
                 cookieManager.EnableGoldenCookie();
+                cookieManager.TurnOnPowerUp(6);
                 break;
         }
     }

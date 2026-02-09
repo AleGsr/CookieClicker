@@ -16,9 +16,6 @@ public class UIStoreItem : MonoBehaviour
     private ShopItem boundItem;
     private GameManager gameManager;
 
-    [Header("State")]
-    public GameObject purchasedMark; // check, glow, overlay, etc
-
 
     public void Init(GameManager gm)
     {
@@ -68,8 +65,6 @@ public class UIStoreItem : MonoBehaviour
 
     void SetPurchasedVisual(bool state)
     {
-        if (purchasedMark != null)
-            purchasedMark.SetActive(state);
 
         if (buyButton != null)
             buyButton.interactable = !state;

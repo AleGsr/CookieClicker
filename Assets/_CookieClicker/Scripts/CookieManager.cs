@@ -1,6 +1,6 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class CookieManager : MonoBehaviour
 {
@@ -26,6 +26,8 @@ public class CookieManager : MonoBehaviour
     bool crunchyActive = false;
     bool comboActive = false;
 
+    public GameObject[] powerUps;
+    
 
     void Awake()
     {
@@ -35,13 +37,6 @@ public class CookieManager : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating(nameof(AutoSave), 10f, 20f);
-
-        void AutoSave()
-        {
-            dataSaver.SaveDataFn();
-        }
-
         //dataSaver.SetCookieManager(this);
         UpdatingTextCookies();
     }
@@ -108,7 +103,7 @@ public class CookieManager : MonoBehaviour
         {
             AddCookies(bakerCookiesPerSec);
             UpdatingTextCookies();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -172,6 +167,10 @@ public class CookieManager : MonoBehaviour
         return true;
     }
 
+    public void TurnOnPowerUp(int powerUpIndex)
+    {
+        powerUps[powerUpIndex].SetActive(true);
+    }
 
 
 }
